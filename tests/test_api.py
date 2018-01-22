@@ -414,3 +414,32 @@ class SurveyStatisticTests(TestCase):
     def test_delete(self):
         with self.assertRaises(NotImplementedError):
             self.resource.delete()
+
+class ReportingTests(TestCase):
+    resource = client.api.reporting
+
+    def test_list(self):
+        path, params = self.resource.list(1)
+        self.assertEqual(path, 'head/survey/1/reporting/')
+
+    def test_get(self):
+        path, params = self.resource.get(1, 1)
+        self.assertEqual(path, 'head/survey/1/reporting/1')
+
+    def test_create(self):
+        with self.assertRaises(NotImplementedError):
+            self.resource.create()
+
+    def test_update(self):
+        path, params = self.resource.update(1, 1)
+        self.assertEqual(path, 'head/survey/1/reporting/1')
+        self.assertEqual(params['copy'], 'false')
+
+    def test_copy(self):
+        path, params = self.resource.copy(1, 1)
+        self.assertEqual(path, 'head/survey/1/reporting/1')
+        self.assertEqual(params['copy'], 'true')
+
+    def test_delete(self):
+        path, params = self.resource.delete(1, 1)
+        self.assertEqual(path, 'head/survey/1/reporting/1')
